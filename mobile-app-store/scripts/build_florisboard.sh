@@ -10,7 +10,7 @@ set -euo pipefail
 # - sha256sum
 #
 # Required env vars:
-# - FLORIS_VERSION (example: 0.4.8)
+# - FLORIS_VERSION (example: 0.5.2)
 # - SIGNING_KEYSTORE_PATH
 # - SIGNING_KEY_ALIAS
 # - SIGNING_KEYSTORE_PASS
@@ -35,7 +35,7 @@ ARTIFACT_ROOT="${ARTIFACT_ROOT:-/data/artifacts/apps}"
 SOURCE_REPO="${SOURCE_REPO:-https://github.com/florisboard/florisboard.git}"
 
 if [[ -z "${FLORIS_VERSION}" ]]; then
-  echo "ERROR: FLORIS_VERSION is required (example: 0.4.8)"
+  echo "ERROR: FLORIS_VERSION is required (example: 0.5.2)"
   exit 1
 fi
 
@@ -71,6 +71,12 @@ if [[ ! -d "${SRC_DIR}/.git" ]]; then
   git clone --depth 1 "${SOURCE_REPO}" "${SRC_DIR}"
 fi
 git -C "${SRC_DIR}" fetch --tags --force
+if ! git -C "${SRC_DIR}" rev-parse -q --verify "${SOURCE_REF}^{commit}" >/dev/null; then
+  echo "ERROR: SOURCE_REF '${SOURCE_REF}' not found in ${SOURCE_REPO}"
+  echo "Known recent tags:"
+  git -C "${SRC_DIR}" tag -l 'v*' --sort=-v:refname | head -n 12 | sed 's/^/  - /'
+  exit 1
+fi
 git -C "${SRC_DIR}" checkout -f "${SOURCE_REF}"
 
 echo "[2/7] source copy to build workspace"
