@@ -23,8 +23,8 @@
     {
       "id": "syncthing-android",
       "priority": "A",
-      "target_version": "1.2.0.8",
-      "source_repo": "https://github.com/syncthing/syncthing-android",
+      "target_version": "2.0.15.0",
+      "source_repo": "https://github.com/Catfriend1/syncthing-android",
       "status": "active"
     },
     {

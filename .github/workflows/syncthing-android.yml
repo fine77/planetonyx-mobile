@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Syncthing Android version (example: 1.2.0.8)"
+        description: "Syncthing-Fork Android version (example: 2.0.15.0)"
         required: true
-        default: "1.2.0.8"
+        default: "2.0.15.0"
       precheck_only:
         description: "Run only fast prechecks (no full Gradle build)"
         required: false

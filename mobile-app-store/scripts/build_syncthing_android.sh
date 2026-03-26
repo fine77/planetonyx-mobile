@@ -12,7 +12,7 @@ set -euo pipefail
 #
 # Optional env vars:
 # - APPSTORE_BASE_URL (default: https://appstore.srv.planetonyx.net)
-# - SOURCE_REPO (default: https://github.com/syncthing/syncthing-android.git)
+# - SOURCE_REPO (default: https://github.com/Catfriend1/syncthing-android.git)
 # - SOURCE_REF (default: v${SYNCTHING_ANDROID_VERSION})
 # - DETACHED_SIGN_KEY_PATH (PEM private key for .sig generation)
 # - BUILD_CMD (default: ./gradlew --no-daemon assembleRelease)
@@ -26,7 +26,7 @@ CHANNEL="${CHANNEL:-stable}"
 SYNCTHING_ANDROID_VERSION="${SYNCTHING_ANDROID_VERSION:-}"
 PRECHECK_ONLY="${PRECHECK_ONLY:-false}"
 APPSTORE_BASE_URL="${APPSTORE_BASE_URL:-https://appstore.srv.planetonyx.net}"
-SOURCE_REPO="${SOURCE_REPO:-https://github.com/syncthing/syncthing-android.git}"
+SOURCE_REPO="${SOURCE_REPO:-https://github.com/Catfriend1/syncthing-android.git}"
 BUILD_CMD="${BUILD_CMD:-./gradlew --no-daemon assembleRelease}"
 
 if [[ -z "${SYNCTHING_ANDROID_VERSION}" ]]; then
@@ -174,4 +174,3 @@ python3 "${BASE_DIR}/scripts/publish_catalog.py" \
 
 echo "DONE: ${SIGNED_APK}"
 echo "SHA256: ${SHA256}"
-
