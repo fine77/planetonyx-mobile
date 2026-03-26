@@ -23,6 +23,7 @@ LICENSE="GPL-3.0"
 MAINTAINER_MODE="${MAINTAINER_MODE:-upstream}"
 CHANNEL="${CHANNEL:-stable}"
 LAWNCHAIR_VERSION="${LAWNCHAIR_VERSION:-}"
+PRECHECK_ONLY="${PRECHECK_ONLY:-false}"
 APPSTORE_BASE_URL="${APPSTORE_BASE_URL:-https://appstore.srv.planetonyx.net}"
 SOURCE_REPO="${SOURCE_REPO:-https://github.com/LawnchairLauncher/lawnchair.git}"
 
@@ -46,6 +47,7 @@ require_cmd git
 require_cmd sha256sum
 require_cmd apksigner
 require_cmd java
+require_cmd keytool
 
 for v in SIGNING_KEYSTORE_PATH SIGNING_KEY_ALIAS SIGNING_KEYSTORE_PASS SIGNING_KEY_PASS; do
   if [[ -z "${!v:-}" ]]; then
@@ -53,6 +55,11 @@ for v in SIGNING_KEYSTORE_PATH SIGNING_KEY_ALIAS SIGNING_KEYSTORE_PASS SIGNING_K
     exit 1
   fi
 done
+
+# GitHub Secrets can accidentally contain trailing newlines. Normalize before signing.
+SIGNING_KEY_ALIAS="$(printf '%s' "${SIGNING_KEY_ALIAS}" | tr -d '\r\n')"
+SIGNING_KEYSTORE_PASS="$(printf '%s' "${SIGNING_KEYSTORE_PASS}" | tr -d '\r\n')"
+SIGNING_KEY_PASS="$(printf '%s' "${SIGNING_KEY_PASS}" | tr -d '\r\n')"
 
 mkdir -p "${BASE_DIR}/sources" "${BASE_DIR}/build" "${BASE_DIR}/dist" "${META_DIR}"
 rm -rf "${BUILD_DIR}"
@@ -63,7 +70,27 @@ if [[ ! -d "${SRC_DIR}/.git" ]]; then
   git clone --depth 1 "${SOURCE_REPO}" "${SRC_DIR}"
 fi
 git -C "${SRC_DIR}" fetch --tags --force
+if ! git -C "${SRC_DIR}" rev-parse -q --verify "${SOURCE_REF}^{commit}" >/dev/null; then
+  echo "ERROR: SOURCE_REF '${SOURCE_REF}' not found in ${SOURCE_REPO}"
+  echo "Known recent tags:"
+  git -C "${SRC_DIR}" tag -l 'v*' --sort=-v:refname | head -n 12 | sed 's/^/  - /'
+  exit 1
+fi
 git -C "${SRC_DIR}" checkout -f "${SOURCE_REF}"
+
+# Fast-fail before long Gradle build if signing credentials are invalid.
+if ! keytool -list -v \
+  -keystore "${SIGNING_KEYSTORE_PATH}" \
+  -storepass "${SIGNING_KEYSTORE_PASS}" \
+  -alias "${SIGNING_KEY_ALIAS}" >/dev/null 2>&1; then
+  echo "ERROR: keystore validation failed for alias '${SIGNING_KEY_ALIAS}' (check SIGNING_KEYSTORE_PASS/SIGNING_KEY_PASS/alias)."
+  exit 1
+fi
+
+if [[ "${PRECHECK_ONLY}" == "true" ]]; then
+  echo "PRECHECK_ONLY=true -> source and signing checks passed, skipping Gradle build."
+  exit 0
+fi
 
 echo "[2/7] source copy to build workspace"
 rsync -a --delete --exclude ".git" "${SRC_DIR}/" "${BUILD_DIR}/"

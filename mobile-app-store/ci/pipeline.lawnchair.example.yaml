@@ -6,12 +6,17 @@ on:
       version:
         description: "Lawnchair version (example: 14.0.0)"
         required: true
+      precheck_only:
+        description: "Run only fast prechecks (no full Gradle build)"
+        required: false
+        default: "false"
 
 jobs:
   build-sign-publish:
     runs-on: ubuntu-latest
     env:
       LAWNCHAIR_VERSION: ${{ github.event.inputs.version }}
+      PRECHECK_ONLY: ${{ github.event.inputs.precheck_only || 'false' }}
       SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
       SIGNING_KEYSTORE_PASS: ${{ secrets.SIGNING_KEYSTORE_PASS }}
       SIGNING_KEY_PASS: ${{ secrets.SIGNING_KEY_PASS }}

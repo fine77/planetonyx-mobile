@@ -30,6 +30,7 @@ LICENSE="Apache-2.0"
 MAINTAINER_MODE="${MAINTAINER_MODE:-upstream}"
 CHANNEL="${CHANNEL:-stable}"
 FLORIS_VERSION="${FLORIS_VERSION:-}"
+PRECHECK_ONLY="${PRECHECK_ONLY:-false}"
 APPSTORE_BASE_URL="${APPSTORE_BASE_URL:-https://appstore.srv.planetonyx.net}"
 ARTIFACT_ROOT="${ARTIFACT_ROOT:-/data/artifacts/apps}"
 SOURCE_REPO="${SOURCE_REPO:-https://github.com/florisboard/florisboard.git}"
@@ -92,6 +93,20 @@ if [[ "${JETPREF_VERSION}" == *SNAPSHOT* ]] && [[ "${ALLOW_SNAPSHOT_DEPS:-false}
   exit 1
 fi
 
+# Fast-fail before long Gradle build if signing credentials are invalid.
+if ! keytool -list -v \
+  -keystore "${SIGNING_KEYSTORE_PATH}" \
+  -storepass "${SIGNING_KEYSTORE_PASS}" \
+  -alias "${SIGNING_KEY_ALIAS}" >/dev/null 2>&1; then
+  echo "ERROR: keystore validation failed for alias '${SIGNING_KEY_ALIAS}' (check SIGNING_KEYSTORE_PASS/SIGNING_KEY_PASS/alias)."
+  exit 1
+fi
+
+if [[ "${PRECHECK_ONLY}" == "true" ]]; then
+  echo "PRECHECK_ONLY=true -> source and signing checks passed, skipping Gradle build."
+  exit 0
+fi
+
 echo "[2/7] source copy to build workspace"
 rsync -a --delete --exclude ".git" "${SRC_DIR}/" "${BUILD_DIR}/"
 
@@ -125,15 +140,6 @@ SHA_FILE="${SIGNED_APK}.sha256"
 
 echo "[5/7] sign apk"
 cp -f "${UNSIGNED_APK}" "${SIGNED_APK}"
-
-# Fast-fail with clear message if keystore credentials or alias are wrong.
-if ! keytool -list -v \
-  -keystore "${SIGNING_KEYSTORE_PATH}" \
-  -storepass "${SIGNING_KEYSTORE_PASS}" \
-  -alias "${SIGNING_KEY_ALIAS}" >/dev/null 2>&1; then
-  echo "ERROR: keystore validation failed for alias '${SIGNING_KEY_ALIAS}' (check SIGNING_KEYSTORE_PASS/SIGNING_KEY_PASS/alias)."
-  exit 1
-fi
 
 apksigner sign \
   --ks "${SIGNING_KEYSTORE_PATH}" \
