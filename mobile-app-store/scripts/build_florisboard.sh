@@ -102,6 +102,23 @@ if ! keytool -list -v \
   exit 1
 fi
 
+# Validate private-key password as well (keytool -list does not verify SIGNING_KEY_PASS).
+TMP_KEYSTORE="$(mktemp /tmp/planetonyx-keycheck-XXXXXX.p12)"
+if ! keytool -importkeystore -noprompt \
+  -srckeystore "${SIGNING_KEYSTORE_PATH}" \
+  -srcstorepass "${SIGNING_KEYSTORE_PASS}" \
+  -srcalias "${SIGNING_KEY_ALIAS}" \
+  -srckeypass "${SIGNING_KEY_PASS}" \
+  -destkeystore "${TMP_KEYSTORE}" \
+  -deststoretype PKCS12 \
+  -deststorepass "planetonyxcheck" \
+  -destkeypass "planetonyxcheck" >/dev/null 2>&1; then
+  rm -f "${TMP_KEYSTORE}"
+  echo "ERROR: key password validation failed for alias '${SIGNING_KEY_ALIAS}' (SIGNING_KEY_PASS mismatch)."
+  exit 1
+fi
+rm -f "${TMP_KEYSTORE}"
+
 if [[ "${PRECHECK_ONLY}" == "true" ]]; then
   echo "PRECHECK_ONLY=true -> source and signing checks passed, skipping Gradle build."
   exit 0
