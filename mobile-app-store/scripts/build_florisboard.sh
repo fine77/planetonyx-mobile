@@ -10,7 +10,7 @@ set -euo pipefail
 # - sha256sum
 #
 # Required env vars:
-# - FLORIS_VERSION (example: 0.5.2)
+# - FLORIS_VERSION (example: 0.5.1)
 # - SIGNING_KEYSTORE_PATH
 # - SIGNING_KEY_ALIAS
 # - SIGNING_KEYSTORE_PASS
@@ -35,7 +35,7 @@ ARTIFACT_ROOT="${ARTIFACT_ROOT:-/data/artifacts/apps}"
 SOURCE_REPO="${SOURCE_REPO:-https://github.com/florisboard/florisboard.git}"
 
 if [[ -z "${FLORIS_VERSION}" ]]; then
-  echo "ERROR: FLORIS_VERSION is required (example: 0.5.2)"
+  echo "ERROR: FLORIS_VERSION is required (example: 0.5.1)"
   exit 1
 fi
 
@@ -78,6 +78,13 @@ if ! git -C "${SRC_DIR}" rev-parse -q --verify "${SOURCE_REF}^{commit}" >/dev/nu
   exit 1
 fi
 git -C "${SRC_DIR}" checkout -f "${SOURCE_REF}"
+
+JETPREF_VERSION="$(awk -F'"' '/^patrickgold-jetpref[[:space:]]*=/{print $2}' "${SRC_DIR}/gradle/libs.versions.toml" 2>/dev/null || true)"
+if [[ "${JETPREF_VERSION}" == *SNAPSHOT* ]] && [[ "${ALLOW_SNAPSHOT_DEPS:-false}" != "true" ]]; then
+  echo "ERROR: upstream tag '${SOURCE_REF}' depends on SNAPSHOT artifacts (jetpref=${JETPREF_VERSION})."
+  echo "Use a stable tag without snapshot deps (recommended: v0.5.1) or set ALLOW_SNAPSHOT_DEPS=true."
+  exit 1
+fi
 
 echo "[2/7] source copy to build workspace"
 rsync -a --delete --exclude ".git" "${SRC_DIR}/" "${BUILD_DIR}/"
