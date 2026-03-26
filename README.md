@@ -33,3 +33,10 @@ Self-hosted Android mobile platform for privacy-focused devices without Google P
 
 - Product spec: `docs/PLANETONYX-STORE-APP-MVP.md`
 - Implementation workspace: `apps/planetonyx-store/`
+
+## App Portfolio
+
+- Build portfolio and priorities:
+  - `docs/APP-PORTFOLIO-AND-BUILD-QUEUE.md`
+- Machine-readable queue:
+  - `mobile-app-store/metadata/build-queue.json`

@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-03-26T00:00:00Z",
+  "policy": {
+    "precheck_required": true,
+    "signed_only": true,
+    "no_google_play": true
+  },
+  "queue": [
+    {
+      "id": "florisboard",
+      "priority": "A",
+      "target_version": "0.5.1",
+      "source_repo": "https://github.com/florisboard/florisboard",
+      "status": "active"
+    },
+    {
+      "id": "lawnchair",
+      "priority": "A",
+      "target_version": "12.3.1",
+      "source_repo": "https://github.com/LawnchairLauncher/lawnchair",
+      "status": "active"
+    },
+    {
+      "id": "syncthing-android",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/syncthing/syncthing-android",
+      "status": "planned"
+    },
+    {
+      "id": "afwall",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/ukanth/afwall",
+      "status": "planned"
+    },
+    {
+      "id": "aegis",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/beemdevelopment/Aegis",
+      "status": "planned"
+    },
+    {
+      "id": "fossify-contacts",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/FossifyOrg/Contacts",
+      "status": "planned"
+    },
+    {
+      "id": "fossify-phone",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/FossifyOrg/Phone",
+      "status": "planned"
+    },
+    {
+      "id": "fossify-messages",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/FossifyOrg/Messages",
+      "status": "planned"
+    },
+    {
+      "id": "organicmaps",
+      "priority": "B",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/organicmaps/organicmaps",
+      "status": "planned"
+    },
+    {
+      "id": "appmanager",
+      "priority": "B",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/MuntashirAkon/AppManager",
+      "status": "planned"
+    },
+    {
+      "id": "obtainium",
+      "priority": "B",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/ImranR98/Obtainium",
+      "status": "planned"
+    },
+    {
+      "id": "messenger",
+      "priority": "exception",
+      "target_version": "manual",
+      "source_repo": "exception-manual-audited",
+      "status": "manual_exception"
+    }
+  ]
+}
+
