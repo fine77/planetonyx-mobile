@@ -84,6 +84,55 @@
       "status": "planned"
     },
     {
+      "id": "k9-mail",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/thunderbird/thunderbird-android",
+      "status": "planned"
+    },
+    {
+      "id": "etar",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/Etar-Group/Etar-Calendar",
+      "status": "planned"
+    },
+    {
+      "id": "tasksorg",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/tasks/tasks",
+      "status": "planned"
+    },
+    {
+      "id": "keepassdx",
+      "priority": "A",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/Kunzisoft/KeePassDX",
+      "status": "planned"
+    },
+    {
+      "id": "fennec",
+      "priority": "B",
+      "target_version": "tbd",
+      "source_repo": "https://gitlab.com/relan/fennecbuild",
+      "status": "planned"
+    },
+    {
+      "id": "fossify-gallery",
+      "priority": "B",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/FossifyOrg/Gallery",
+      "status": "planned"
+    },
+    {
+      "id": "jitsi-meet",
+      "priority": "B",
+      "target_version": "tbd",
+      "source_repo": "https://github.com/jitsi/jitsi-meet",
+      "status": "planned"
+    },
+    {
       "id": "messenger",
       "priority": "exception",
       "target_version": "manual",

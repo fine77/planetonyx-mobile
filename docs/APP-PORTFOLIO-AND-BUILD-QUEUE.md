@@ -2,6 +2,7 @@
 
 Stand: 2026-03-26
 Ziel: App-Store gezielt mit den wirklich benoetigten Apps fuellen.
+Referenz fuer Google-Ersatz: `docs/GOOGLE-REPLACEMENT-MATRIX.md`
 
 ## 1) Prioritaet A (sofort in Store)
 
@@ -28,6 +29,13 @@ Begruendung:
 5. Termux
 6. Koler (Alternative Dialer)
 7. OpenContacts (Alternative Contacts)
+8. K-9 Mail
+9. Etar
+10. Tasks.org
+11. KeePassDX
+12. Fennec
+13. Fossify Gallery
+14. Jitsi Meet
 
 ## 3) Ausnahme-Apps (nicht regulär in OSS-Store)
 
@@ -59,4 +67,3 @@ Eine App gilt als "im Store", wenn:
 2. Keine unsignierten APKs
 3. Keine Full-Builds ohne erfolgreichen Precheck
 4. Keine Mischung aus Incident-Reparatur und Architekturumbau
-
