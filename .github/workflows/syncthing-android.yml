@@ -29,7 +29,13 @@ jobs:
       - name: Install toolchain
         run: |
           sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk rsync
+          sudo apt-get install -y rsync
+
+      - name: Setup Java 11 (Syncthing Android compatibility)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
 
       - name: Install Android build-tools (apksigner)
         run: |
@@ -60,4 +66,3 @@ jobs:
           path: |
             mobile-app-store/dist/syncthing-android/${{ github.event.inputs.version }}/
             mobile-app-store/metadata/index.json
-
