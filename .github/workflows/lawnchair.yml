@@ -1,0 +1,56 @@
+name: planetonyx-mobile-lawnchair
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Lawnchair version (example: 14.0.0)"
+        required: true
+
+jobs:
+  build-sign-publish:
+    runs-on: ubuntu-latest
+    env:
+      LAWNCHAIR_VERSION: ${{ github.event.inputs.version }}
+      SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+      SIGNING_KEYSTORE_PASS: ${{ secrets.SIGNING_KEYSTORE_PASS }}
+      SIGNING_KEY_PASS: ${{ secrets.SIGNING_KEY_PASS }}
+      APPSTORE_BASE_URL: https://appstore.srv.planetonyx.net
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-17-jdk rsync
+
+      - name: Install Android build-tools (apksigner)
+        run: |
+          sudo apt-get install -y zipalign apksigner || true
+
+      - name: Materialize signing files from secrets
+        run: |
+          test -n "${{ secrets.SIGNING_KEYSTORE_B64 }}"
+          echo "${{ secrets.SIGNING_KEYSTORE_B64 }}" | base64 -d > /tmp/planetonyx-release.keystore
+          chmod 600 /tmp/planetonyx-release.keystore
+          echo "SIGNING_KEYSTORE_PATH=/tmp/planetonyx-release.keystore" >> "$GITHUB_ENV"
+          if [ -n "${{ secrets.DETACHED_SIGN_KEY_B64 }}" ]; then
+            echo "${{ secrets.DETACHED_SIGN_KEY_B64 }}" | base64 -d > /tmp/planetonyx-detached-sign.pem
+            chmod 600 /tmp/planetonyx-detached-sign.pem
+            echo "DETACHED_SIGN_KEY_PATH=/tmp/planetonyx-detached-sign.pem" >> "$GITHUB_ENV"
+          fi
+
+      - name: Run Lawnchair pipeline
+        working-directory: mobile-app-store
+        run: |
+          chmod +x scripts/build_lawnchair.sh
+          ./scripts/build_lawnchair.sh
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lawnchair-${{ github.event.inputs.version }}
+          path: |
+            mobile-app-store/dist/lawnchair/${{ github.event.inputs.version }}/
+            mobile-app-store/metadata/index.json
