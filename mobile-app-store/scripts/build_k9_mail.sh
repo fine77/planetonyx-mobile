@@ -124,6 +124,23 @@ if [[ -d "${PATCH_DIR}" ]]; then
   shopt -u nullglob
 fi
 
+# Some Thunderbird/K-9 upstream tags carry comma-separated org.gradle.jvmargs,
+# which breaks JVM startup on current GitHub runners. Normalize to spaces.
+if [[ -f "${BUILD_DIR}/gradle.properties" ]] && grep -q '^org\.gradle\.jvmargs=.*,' "${BUILD_DIR}/gradle.properties"; then
+  tmp_gp="$(mktemp)"
+  awk '
+    BEGIN { OFS="" }
+    /^org\.gradle\.jvmargs=/ {
+      sub(/^org\.gradle\.jvmargs=/, "", $0)
+      gsub(/,/, " ", $0)
+      print "org.gradle.jvmargs=", $0
+      next
+    }
+    { print }
+  ' "${BUILD_DIR}/gradle.properties" > "${tmp_gp}"
+  mv "${tmp_gp}" "${BUILD_DIR}/gradle.properties"
+fi
+
 echo "[4/7] gradle build"
 (
   cd "${BUILD_DIR}"
