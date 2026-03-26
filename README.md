@@ -12,6 +12,7 @@ Self-hosted Android mobile platform for privacy-focused devices without Google P
 - `manifests/58-mobile-ota-mvp.yaml` (OTA API + NFS artifacts)
 - `manifests/59-mobile-app-catalog-mvp.yaml` (Custom app catalog)
 - `mobile-app-store/` (source -> patch -> build -> sign -> publish)
+- `apps/planetonyx-store/` (Android App Store client)
 - `docs/` (operating model, OTA and app-store architecture)
 
 ## Naming Convention
@@ -27,3 +28,8 @@ Self-hosted Android mobile platform for privacy-focused devices without Google P
 - Never use Google Play Store in this project.
 - Publish signed artifacts only.
 - Keep signing keys out of git.
+
+## App Store Client
+
+- Product spec: `docs/PLANETONYX-STORE-APP-MVP.md`
+- Implementation workspace: `apps/planetonyx-store/`
