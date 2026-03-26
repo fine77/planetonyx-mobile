@@ -23,9 +23,9 @@
     {
       "id": "syncthing-android",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "1.2.0.8",
       "source_repo": "https://github.com/syncthing/syncthing-android",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "afwall",
@@ -37,9 +37,9 @@
     {
       "id": "aegis",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "3.4.2",
       "source_repo": "https://github.com/beemdevelopment/Aegis",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "fossify-contacts",
@@ -92,4 +92,3 @@
     }
   ]
 }
-

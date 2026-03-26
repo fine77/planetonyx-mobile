@@ -25,9 +25,13 @@ This workspace implements the source-to-build pipeline for the K3s custom app st
 
 - Script: `scripts/build_florisboard.sh`
 - Script: `scripts/build_lawnchair.sh`
+- Script: `scripts/build_syncthing_android.sh`
+- Script: `scripts/build_aegis.sh`
 - Metadata updater: `scripts/publish_catalog.py`
 - CI example: `ci/pipeline.florisboard.example.yaml`
 - CI example: `ci/pipeline.lawnchair.example.yaml`
+- CI example: `ci/pipeline.syncthing-android.example.yaml`
+- CI example: `ci/pipeline.aegis.example.yaml`
 
 Required signing env vars:
 - `SIGNING_KEYSTORE_PATH`
