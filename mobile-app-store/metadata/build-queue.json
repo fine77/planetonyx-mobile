@@ -86,16 +86,16 @@
     {
       "id": "k9-mail",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "17.0",
       "source_repo": "https://github.com/thunderbird/thunderbird-android",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "etar",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "1.0.53",
       "source_repo": "https://github.com/Etar-Group/Etar-Calendar",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "tasksorg",
