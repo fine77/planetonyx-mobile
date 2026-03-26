@@ -54,6 +54,7 @@ require_cmd git
 require_cmd sha256sum
 require_cmd apksigner
 require_cmd java
+require_cmd keytool
 
 for v in SIGNING_KEYSTORE_PATH SIGNING_KEY_ALIAS SIGNING_KEYSTORE_PASS SIGNING_KEY_PASS; do
   if [[ -z "${!v:-}" ]]; then
@@ -61,6 +62,11 @@ for v in SIGNING_KEYSTORE_PATH SIGNING_KEY_ALIAS SIGNING_KEYSTORE_PASS SIGNING_K
     exit 1
   fi
 done
+
+# GitHub Secrets can accidentally contain trailing newlines. Normalize before signing.
+SIGNING_KEY_ALIAS="$(printf '%s' "${SIGNING_KEY_ALIAS}" | tr -d '\r\n')"
+SIGNING_KEYSTORE_PASS="$(printf '%s' "${SIGNING_KEYSTORE_PASS}" | tr -d '\r\n')"
+SIGNING_KEY_PASS="$(printf '%s' "${SIGNING_KEY_PASS}" | tr -d '\r\n')"
 
 mkdir -p "${BASE_DIR}/sources" "${BASE_DIR}/build" "${BASE_DIR}/dist" "${META_DIR}"
 rm -rf "${BUILD_DIR}"
@@ -119,6 +125,16 @@ SHA_FILE="${SIGNED_APK}.sha256"
 
 echo "[5/7] sign apk"
 cp -f "${UNSIGNED_APK}" "${SIGNED_APK}"
+
+# Fast-fail with clear message if keystore credentials or alias are wrong.
+if ! keytool -list -v \
+  -keystore "${SIGNING_KEYSTORE_PATH}" \
+  -storepass "${SIGNING_KEYSTORE_PASS}" \
+  -alias "${SIGNING_KEY_ALIAS}" >/dev/null 2>&1; then
+  echo "ERROR: keystore validation failed for alias '${SIGNING_KEY_ALIAS}' (check SIGNING_KEYSTORE_PASS/SIGNING_KEY_PASS/alias)."
+  exit 1
+fi
+
 apksigner sign \
   --ks "${SIGNING_KEYSTORE_PATH}" \
   --ks-key-alias "${SIGNING_KEY_ALIAS}" \
