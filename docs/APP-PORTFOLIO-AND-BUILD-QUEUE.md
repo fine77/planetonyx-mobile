@@ -3,6 +3,8 @@
 Stand: 2026-03-26
 Ziel: App-Store gezielt mit den wirklich benoetigten Apps fuellen.
 Referenz fuer Google-Ersatz: `docs/GOOGLE-REPLACEMENT-MATRIX.md`
+Active Test Device (Phase 1): OnePlus AC2003 (`avicii`)
+Planned Device (Phase 2, later): Xiaomi Poco X3 Pro (`vayu`)
 
 ## 1) Prioritaet A (sofort in Store)
 
@@ -17,7 +19,8 @@ Referenz fuer Google-Ersatz: `docs/GOOGLE-REPLACEMENT-MATRIX.md`
 
 Begruendung:
 - Kernfunktion fuer daily use + Security Baseline
-- klarer Nutzen fuer avicii/poco pilot
+- klarer Nutzen fuer avicii test/release phase
+- poco bleibt eingeplant fuer spaetere Erweiterung
 - passt zur bestehenden OSS-Policy ohne Play Store
 
 ## 2) Prioritaet B (nach Stabilisierung A)
