@@ -196,3 +196,5 @@ Panels:
 6. Add custom app catalog service (`appstore.srv.planetonyx.net`) and source-based app pipeline:
    - `/root/about-site/docs/K3S-CUSTOM-APP-STORE-MVP.md`
    - `/root/about-site/projects/k3s-srv-rebuild/manifests/59-mobile-app-catalog-mvp.yaml`
+7. Add mobile profile API service (`profile.srv.planetonyx.net`) for device-phase policy:
+   - `/root/about-site/projects/k3s-srv-rebuild/manifests/60-mobile-profile-api-mvp.yaml`

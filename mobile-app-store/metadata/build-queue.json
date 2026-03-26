@@ -3,7 +3,9 @@
   "policy": {
     "precheck_required": true,
     "signed_only": true,
-    "no_google_play": true
+    "no_google_play": true,
+    "active_target_device": "avicii",
+    "phase2_device": "vayu"
   },
   "queue": [
     {
@@ -44,23 +46,23 @@
     {
       "id": "fossify-contacts",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "1.6.0",
       "source_repo": "https://github.com/FossifyOrg/Contacts",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "fossify-phone",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "1.11.1",
       "source_repo": "https://github.com/FossifyOrg/Phone",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "fossify-messages",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "1.8.0",
       "source_repo": "https://github.com/FossifyOrg/Messages",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "organicmaps",

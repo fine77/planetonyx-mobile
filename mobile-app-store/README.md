@@ -29,6 +29,9 @@ This workspace implements the source-to-build pipeline for the K3s custom app st
 - Script: `scripts/build_aegis.sh`
 - Script: `scripts/build_k9_mail.sh`
 - Script: `scripts/build_etar.sh`
+- Script: `scripts/build_fossify_contacts.sh`
+- Script: `scripts/build_fossify_phone.sh`
+- Script: `scripts/build_fossify_messages.sh`
 - Metadata updater: `scripts/publish_catalog.py`
 - CI example: `ci/pipeline.florisboard.example.yaml`
 - CI example: `ci/pipeline.lawnchair.example.yaml`
@@ -36,6 +39,9 @@ This workspace implements the source-to-build pipeline for the K3s custom app st
 - CI example: `ci/pipeline.aegis.example.yaml`
 - CI example: `ci/pipeline.k9-mail.example.yaml`
 - CI example: `ci/pipeline.etar.example.yaml`
+- CI example: `ci/pipeline.fossify-contacts.example.yaml`
+- CI example: `ci/pipeline.fossify-phone.example.yaml`
+- CI example: `ci/pipeline.fossify-messages.example.yaml`
 
 Required signing env vars:
 - `SIGNING_KEYSTORE_PATH`
