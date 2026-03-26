@@ -1,0 +1,29 @@
+name: mobile-app-store-pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_id:
+        description: "App identifier"
+        required: true
+      version:
+        description: "Target version"
+        required: true
+
+jobs:
+  build-sign-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run pipeline stub
+        working-directory: mobile-app-store
+        run: |
+          ./scripts/pipeline_stub.sh \
+            "${{ github.event.inputs.app_id }}" \
+            "${{ github.event.inputs.version }}"
+
+      - name: TODO
+        run: |
+          echo "Replace with real source clone/build/sign/publish steps"

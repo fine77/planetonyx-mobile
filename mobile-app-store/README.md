@@ -1,0 +1,42 @@
+# Mobile App Store Workspace
+
+This workspace implements the source-to-build pipeline for the K3s custom app store MVP.
+
+## Directory Layout
+
+- `sources/` upstream source checkouts (read-only baseline)
+- `patches/` local patch sets (`<app-id>/*.patch`)
+- `build/` temporary CI workspace
+- `dist/` signed APK artifacts and signatures
+- `metadata/` catalog index and app manifests
+- `scripts/` pipeline scripts
+- `ci/` CI pipeline definitions
+
+## Pipeline Order
+
+1. clone/pull source into `sources/<app>`
+2. apply optional patches from `patches/<app>`
+3. build in isolated runner to `build/<app>`
+4. sign output and write to `dist/<app>/<version>/`
+5. update `metadata/index.json`
+6. publish artifacts and metadata to K3s app-catalog storage path
+
+## First Concrete Pipeline
+
+- Script: `scripts/build_florisboard.sh`
+- Script: `scripts/build_lawnchair.sh`
+- Metadata updater: `scripts/publish_catalog.py`
+- CI example: `ci/pipeline.florisboard.example.yaml`
+- CI example: `ci/pipeline.lawnchair.example.yaml`
+
+Required signing env vars:
+- `SIGNING_KEYSTORE_PATH`
+- `SIGNING_KEY_ALIAS`
+- `SIGNING_KEYSTORE_PASS`
+- `SIGNING_KEY_PASS`
+- optional detached signature key: `DETACHED_SIGN_KEY_PATH`
+
+GitHub Actions secrets reference:
+- `docs/SIGNING-SECRETS-SETUP.md`
+- required: `SIGNING_KEYSTORE_B64`, `SIGNING_KEY_ALIAS`, `SIGNING_KEYSTORE_PASS`, `SIGNING_KEY_PASS`
+- optional: `DETACHED_SIGN_KEY_B64`

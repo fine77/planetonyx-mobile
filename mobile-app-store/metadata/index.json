@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-03-26T02:11:04Z",
+  "store_version": "1.0",
+  "apps": [
+    {
+      "id": "florisboard",
+      "name": "FlorisBoard",
+      "channel": "stable",
+      "version": "0.4.8",
+      "artifact_url": "https://appstore.srv.planetonyx.net/artifacts/apps/florisboard/0.4.8/florisboard.apk",
+      "sha256": "2a10b0ca53569101f053db02a6424f69999a4776c5ea2c4ee4992bc996d62cbf",
+      "signature_url": "https://appstore.srv.planetonyx.net/artifacts/apps/florisboard/0.4.8/florisboard.apk.sig",
+      "source_repo": "https://github.com/florisboard/florisboard",
+      "license": "Apache-2.0",
+      "maintainer_mode": "upstream"
+    },
+    {
+      "id": "lawnchair",
+      "name": "Lawnchair",
+      "channel": "stable",
+      "version": "14.0.0",
+      "artifact_url": "https://appstore.srv.planetonyx.net/artifacts/apps/lawnchair/14.0.0/lawnchair.apk",
+      "sha256": "97e81ce1cb7912070cd2142627b7f0bb491b900b3f8a815c2d3221bf09bf3a7e",
+      "signature_url": "https://appstore.srv.planetonyx.net/artifacts/apps/lawnchair/14.0.0/lawnchair.apk.sig",
+      "source_repo": "https://github.com/LawnchairLauncher/lawnchair",
+      "license": "GPL-3.0",
+      "maintainer_mode": "upstream"
+    }
+  ]
+}

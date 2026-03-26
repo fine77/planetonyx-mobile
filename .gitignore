@@ -1,0 +1,17 @@
+# Runtime/build outputs
+mobile-app-store/build/
+mobile-app-store/dist/
+mobile-app-store/sources/
+
+# Sensitive material
+*.keystore
+*.jks
+*.pem
+*.key
+*.p12
+*.pfx
+*.env
+
+# Python
+__pycache__/
+*.pyc
