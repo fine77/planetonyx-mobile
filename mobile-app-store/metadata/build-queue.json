@@ -32,9 +32,9 @@
     {
       "id": "afwall",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "4.0.3",
       "source_repo": "https://github.com/ukanth/afwall",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "aegis",
@@ -102,9 +102,9 @@
     {
       "id": "tasksorg",
       "priority": "A",
-      "target_version": "tbd",
+      "target_version": "15.1",
       "source_repo": "https://github.com/tasks/tasks",
-      "status": "planned"
+      "status": "active"
     },
     {
       "id": "keepassdx",

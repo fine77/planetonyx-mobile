@@ -32,6 +32,8 @@ This workspace implements the source-to-build pipeline for the K3s custom app st
 - Script: `scripts/build_fossify_contacts.sh`
 - Script: `scripts/build_fossify_phone.sh`
 - Script: `scripts/build_fossify_messages.sh`
+- Script: `scripts/build_afwall.sh`
+- Script: `scripts/build_tasksorg.sh`
 - Metadata updater: `scripts/publish_catalog.py`
 - CI example: `ci/pipeline.florisboard.example.yaml`
 - CI example: `ci/pipeline.lawnchair.example.yaml`
@@ -42,6 +44,8 @@ This workspace implements the source-to-build pipeline for the K3s custom app st
 - CI example: `ci/pipeline.fossify-contacts.example.yaml`
 - CI example: `ci/pipeline.fossify-phone.example.yaml`
 - CI example: `ci/pipeline.fossify-messages.example.yaml`
+- CI example: `ci/pipeline.afwall.example.yaml`
+- CI example: `ci/pipeline.tasksorg.example.yaml`
 
 Required signing env vars:
 - `SIGNING_KEYSTORE_PATH`
