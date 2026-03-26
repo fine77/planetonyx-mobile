@@ -4,7 +4,7 @@ set -euo pipefail
 # PLANETONYX Mobile - Lawnchair source/build/sign/publish pipeline (MVP)
 #
 # Required env vars:
-# - LAWNCHAIR_VERSION (example: 14.0.0)
+# - LAWNCHAIR_VERSION (example: 12.3.1)
 # - SIGNING_KEYSTORE_PATH
 # - SIGNING_KEY_ALIAS
 # - SIGNING_KEYSTORE_PASS
@@ -28,7 +28,7 @@ APPSTORE_BASE_URL="${APPSTORE_BASE_URL:-https://appstore.srv.planetonyx.net}"
 SOURCE_REPO="${SOURCE_REPO:-https://github.com/LawnchairLauncher/lawnchair.git}"
 
 if [[ -z "${LAWNCHAIR_VERSION}" ]]; then
-  echo "ERROR: LAWNCHAIR_VERSION is required (example: 14.0.0)"
+  echo "ERROR: LAWNCHAIR_VERSION is required (example: 12.3.1)"
   exit 1
 fi
 

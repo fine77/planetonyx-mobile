@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Lawnchair version (example: 14.0.0)"
+        description: "Lawnchair version (example: 12.3.1)"
         required: true
+        default: "12.3.1"
       precheck_only:
         description: "Run only fast prechecks (no full Gradle build)"
         required: false
